@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Create | Verification Website</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS     -->
+    <link href="{% static 'portal/bootstrap.min.css' %}" rel="stylesheet" />
+    
+    <link href="{% static 'portal/material-dashboard.css' %}" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-color="purple" data-image="{% static 'portal/sidebar-1.jpg' %}">
+            <div class="logo">
+               <img src="{% static 'portal/iitg no bg.png' %}" class="img-responsive center-block">
+                <a href="{% url 'portal:pending' %}" class="simple-text">
+                    Verification Portal
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li>
+                        <a href="{% url 'portal:pending' %}">
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'portal:search_event_page' %}">
+                            <i class="material-icons">search</i>
+                            <p>Search</p>
+                        </a>
+                    </li>
+                    {% if user3 != "" %}
+                    <li class="active">
+                        <a href="{% url 'portal:create_team_page' %}">
+                            <i class="material-icons">create</i>
+                            <p>Create</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                     {% if webmail not in web %}
+                     <li>
+                        <a href="{% url 'portal:profile' %}">
+                            <i class="material-icons">person</i>
+                            <p>Profile</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="{% url 'portal:help' %}">
+                            <i class="material-icons">help</i>
+                            <p>Help</p>
+                        </a>
+                    </li>
+                    <li class="active-pro">
+                        <a href="{% url 'portal:logout' %}">
+                            <i class="material-icons">settings_power</i>
+                            <p>Logout</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-transparent navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"> Dashboard </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <h4 class="nav navbar-nav navbar-right">Welcome, <b><span class="mkv_user">{{ user.profile.username }}</span>!</b></h4>
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">Create team</h4>
+                                    <p class="category">Fill in the details</p>
+                                </div>
+                                <div class="card-content">
+                                    <form action="/portal/create_team/"  method="post" id="create_team" name="create_team">
+                                    {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Team name</label>
+                                                    <input type="text" class="form-control" name="team" id="team" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Subtitle</label>
+                                                    <input type="text" class="form-control" name="subtitle" id="subtitle" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Year</label>
+                                                    <select class="form-control" name="year" id="year" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                            	<div class="form-group label-floating select-with-placeholder">
+	                                                <label for="sel1" class="control-label">Under the aegis of</label>
+												    <select class="form-control" name="uta" id="uta" required>
+												    	<option selected hidden value="">-- Please select --</option>
+												    	<option>Campus Broadcasting System</option>
+                                                        <option>Centre for Career Development</option>
+												    	<option>Cultural Board</option>
+												    	<option value="dept_body">Departmental Bodies</option>
+												    	<option>Hostel Affairs Board</option>
+												    	<option value="hostel_team">Hostel Teams</option>
+												    	<option>Sports Board</option>
+												    	<option>Students' Academic Board</option>
+												    	<option>Student Alumni Interaction Linkage</option>
+												    	<option>Students' Web Committee</option>
+												    	<option>Technical Board</option>
+												    	<option>Welfare Board</option>
+												    	<option>Others</option>
+												    </select>
+												</div>
+                                            </div>
+                                            <div class="col-md-5" id="hostel" style="display: none">
+                                                <div class="form-group label-floating select-with-placeholder">
+                                                    <label for="sel1" class="control-label">Hostel</label>
+												    <select class="form-control" name="hostels" id="hostels">
+												    	<option selected hidden value="">-- Please select --</option>
+												    	<option>Barak</option>
+												    	<option>Brahmaputra</option>
+												    	<option>Dhansiri</option>
+												    	<option>Dibang</option>
+												    	<option>Dihing</option>
+												    	<option>Kameng</option>
+												    	<option>Kapili</option>
+												    	<option>Lohit</option>
+												    	<option>Manas</option>
+												    	<option>Married Scholars Hostel</option>
+												    	<option>Siang</option>
+												    	<option>Subansiri</option>
+												    	<option>Umiam</option>
+												    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5" id="deptbody" style="display: none">
+                                                <div class="form-group label-floating select-with-placeholder">
+                                                    <label for="sel1" class="control-label">Body</label>
+												    <select class="form-control" name="bodies" id="bodies">
+												    	<option selected hidden value="">-- Please select --</option>
+												    	<option>ACE</option>
+												    	<option>Cepstrum</option>
+												    	<option>CSEA</option>
+												    	<option>Matrix</option>
+												    	<option>MESA</option>
+												    	<option>Reflux</option>
+												    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-right" form="create_team">Submit</button>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right">
+                        Developed by <a href="https://www.facebook.com/mukul.verma.3745">Mukul Verma</a> and <a href="https://www.facebook.com/sarvesh83">Sarvesh Raj</a>
+
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+<!--   Core JS Files   -->
+<script src="{% static 'portal/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'portal/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'portal/material.min.js' %}" type="text/javascript"></script>
+
+<!--  PerfectScrollbar Library -->
+<script src="{% static 'portal/perfect-scrollbar.jquery.min.js' %}" type="text/javascript"></script>
+<!--  Notifications Plugin    -->
+<script src="{% static 'portal/bootstrap-notify.js' %}" type="text/javascript"></script>
+
+<script src="{% static 'portal/material-dashboard.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+	$('#uta').on('change',function(){
+     var selection = $(this).val();
+    switch(selection){
+    case "dept_body":
+    $("#deptbody").show()
+    $('#bodies').prop('required', true);
+    $("#hostel").hide()
+    $('#hostels').prop('required', false);
+   	break;
+   	case "hostel_team":
+    $("#hostel").show()
+    $('#hostels').prop('required', true);
+    $("#deptbody").hide()
+    $('#bodies').prop('required', false);
+   	break;
+    default:
+    $("#hostel").hide()
+    $('#hostels').prop('required', false);
+    $("#deptbody").hide()
+    $('#bodies').prop('required', false);
+    }
+});
+</script>
+<script type="text/javascript">
+	var current = new Date().getFullYear();
+    var start = current-1;
+    var options = "<option selected hidden>-- Please Select --</option>";
+    for(var year = start; year <= current; year++){
+        end=year+1;
+        options += "<option>"+year+"-"+end+"</option>";
+    }
+    document.getElementById("year").innerHTML = options;
+</script>
+</html>
